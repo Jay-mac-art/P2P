@@ -84,7 +84,7 @@ app.post('/add/testimonial', upload.single('photo'), async (req, res) => {
 })
 
 
-app.put('/edit/testimonial/:testimonial_ID', async (req, res) => {
+app.put('/edit/testimonial/:testimonial_ID', upload.single('photo') , async (req, res) => {
     try {
         const id = req.params.testimonial_ID;
 
@@ -97,7 +97,7 @@ app.put('/edit/testimonial/:testimonial_ID', async (req, res) => {
         }
 
         console.log(obj,"hello")
-        
+
         await testimonial.updateOne({ testimonial_ID: id }, obj).then(() => { res.send({ "msg": "testimonial edited successfully" }).status(200) }).catch((error) => { console.log(error); });
 
     }
