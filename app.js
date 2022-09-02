@@ -90,9 +90,10 @@ app.put('/edit/testimonial/:testimonial_ID', upload.single('photo') , async (req
 
         const obj = {
             photo: !(req.file.filename) ? undefined : req.file.filename,
+            
+            active: req.body.active,
             name: req.body.name,
             post: req.body.post,
-            active: req.body.active,
             testimonial_Description: req.body.testimonial_Description
         }
 
