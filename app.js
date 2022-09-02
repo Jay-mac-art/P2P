@@ -49,7 +49,8 @@ app.get('/get/testimonials', async (req, res) => {
         res.send(data).status(200)
     }
     catch (error) {
-        res.send({ "msg" : "error"}).status(400)
+        console.log(error)
+        res.sendStatus(400);
 
     }
 
@@ -76,7 +77,8 @@ app.post('/add/testimonial', upload.single('photo'), async (req, res) => {
         newvalue.save().then(() => { res.send({ "msg": "testimonial added successfully" }).status(200) }).catch((error) => { console.log(error); });
     }
     catch (error) {
-        res.send({ "msg" : "error"}).status(400)
+        console.log(error)
+        res.sendStatus(400);
     }
 
 })
@@ -94,11 +96,14 @@ app.put('/edit/testimonial/:testimonial_ID', async (req, res) => {
             testimonial_Description: req.body.testimonial_Description
         }
 
+        console.log(obj,"hello")
+        
         await testimonial.updateOne({ testimonial_ID: id }, obj).then(() => { res.send({ "msg": "testimonial edited successfully" }).status(200) }).catch((error) => { console.log(error); });
 
     }
     catch (error) {
-        res.send({ "msg" : "error"}).status(400)
+        console.log(error)
+        res.sendStatus(400);
 
     }
 
@@ -114,7 +119,8 @@ app.delete('/delete/testimonial/:testimonial_ID', async (req, res) => {
         let newvalue = await testimonial.remove({ testimonial_ID: id }).then(() => { res.send({ "msg": "testimonial deleted successfully" }).status(200) }).catch((err) => { console.log('error'); });
     }
     catch (error) {
-        res.send({ "msg" : "error"}).status(400)
+        console.log(error)
+        res.sendStatus(400);
 
     }
 
