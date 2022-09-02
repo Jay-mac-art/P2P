@@ -49,7 +49,7 @@ app.get('/get/testimonials', async (req, res) => {
         res.send(data).status(200)
     }
     catch (error) {
-        res.send(error).status(400)
+        res.send({ "msg" : "error"}).status(400)
 
     }
 
@@ -76,8 +76,7 @@ app.post('/add/testimonial', upload.single('photo'), async (req, res) => {
         newvalue.save().then(() => { res.send({ "msg": "testimonial added successfully" }).status(200) }).catch((error) => { console.log(error); });
     }
     catch (error) {
-        res.send(error).status(400)
-
+        res.send({ "msg" : "error"}).status(400)
     }
 
 })
@@ -88,7 +87,7 @@ app.put('/edit/testimonial/:testimonial_ID', async (req, res) => {
         const id = req.params.testimonial_ID;
 
         const obj = {
-            photo: req.file.filename,
+            photo: !(req.file.filename) ? undefined : req.file.filename,
             name: req.body.name,
             post: req.body.post,
             active: req.body.active,
@@ -99,7 +98,7 @@ app.put('/edit/testimonial/:testimonial_ID', async (req, res) => {
 
     }
     catch (error) {
-        res.send(error).status(400)
+        res.send({ "msg" : "error"}).status(400)
 
     }
 
@@ -115,7 +114,7 @@ app.delete('/delete/testimonial/:testimonial_ID', async (req, res) => {
         let newvalue = await testimonial.remove({ testimonial_ID: id }).then(() => { res.send({ "msg": "testimonial deleted successfully" }).status(200) }).catch((err) => { console.log('error'); });
     }
     catch (error) {
-        res.send(error).status(400)
+        res.send({ "msg" : "error"}).status(400)
 
     }
 
